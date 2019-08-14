@@ -26,9 +26,12 @@ provider "aws" {
 resource "aws_instance" "nginx" {
   ami           = "ami-c58c1dd3"
   instance_type = "t2.micro"
-  key_name        = "${var.key_name}"
+  key_name      = "${var.key_name}"
+  subnet_id     = "${aws_subnet.us-east-1a-public.id}"
 
   connection {
+    type        = "ssh"
+    host        = self.public_ip
     user        = "ec2-user"
     private_key = "${file(var.private_key_path)}"
   }
@@ -39,6 +42,18 @@ resource "aws_instance" "nginx" {
       "sudo service nginx start"
     ]
   }
+}
+
+resource "aws_subnet" "us-east-1a-public" {
+  vpc_id = "${aws_vpc.example.id}"
+  cidr_block = "10.0.1.0/25"
+  availability_zone = "us-east-1a"
+}
+
+resource "aws_vpc" "example" {
+  cidr_block = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  enable_dns_support = true
 }
 
 ##################################################################################
