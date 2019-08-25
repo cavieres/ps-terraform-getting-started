@@ -72,11 +72,6 @@ resource "aws_internet_gateway" "ps-tf-gw" {
 resource "aws_route_table" "ps-tf-rt" {
   vpc_id = "${aws_vpc.ps-tf-vpc.id}"
 
-//  route {
-//    cidr_block = "10.0.0.0/16"
-//    gateway_id = local
-//  }
-
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.ps-tf-gw.id}"
@@ -140,13 +135,11 @@ resource "aws_security_group" "ps-tf-sec-grp" {
     to_port         = 0
     protocol        = "-1"
     cidr_blocks     = ["0.0.0.0/0"]
-    #prefix_list_ids = ["pl-12c4e678"]
   }
 }
 
 resource "aws_network_interface" "ps-tf-net-if" {
   subnet_id       = "${aws_subnet.us-east-1a-public.id}"
-  #private_ips     = ["10.0.0.50"]
   security_groups = ["${aws_security_group.ps-tf-sec-grp.id}"]
 
   attachment {
