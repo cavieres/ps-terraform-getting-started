@@ -52,3 +52,5 @@ EC2
 Using configuration described in:
 - [Getting Started with IPv4 for Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/getting-started-ipv4.html)
 - [Scenario 1: VPC with a Single Public Subnet](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario1.html)
+- aws-config.pptx
+- aws-route-table-assoc-subnet.JPG
